@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: omnimcp-gateway
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: OMNIMCP_API_KEY
+        sync: false

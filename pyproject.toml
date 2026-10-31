@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "omnimcp-analytics"
+version = "0.1.0"
+description = "A local analytics MCP server, Gemini client, and protected federated Streamable HTTP gateway."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115,<1",
+    "google-genai>=1.0,<2",
+    "httpx>=0.27,<1",
+    "mcp[cli]>=1.28,<2",
+    "psutil>=6.0,<8",
+    "uvicorn[standard]>=0.30,<1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0,<9"]
+
+[project.scripts]
+omnimcp-analytics = "omnimcp_analytics.server:main"
+omnimcp-client = "omnimcp_analytics.client:main"
+
+[project.entry-points."mcp.servers"]
+omnimcp-analytics = "omnimcp_analytics.server:mcp"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/omnimcp_analytics"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
